@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NET_MVC5_-Ch12-身份驗證與授權", "ASP.NET_MVC5_-Ch12-身份驗證與授權\ASP.NET_MVC5_-Ch12-身份驗證與授權.csproj", "{057A9D62-4407-4BCD-A481-7E0DC177732E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "使用 Session 做身份驗證", "使用 Session 做身份驗證\使用 Session 做身份驗證.csproj", "{3D78B537-27B0-467F-9395-0D9F2B0CE28A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "使用 Cookie 做身份驗證", "使用 Cookie 做身份驗證\使用 Cookie 做身份驗證.csproj", "{AC9069D2-722B-4582-86F7-A7CF5BC74A9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{057A9D62-4407-4BCD-A481-7E0DC177732E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{057A9D62-4407-4BCD-A481-7E0DC177732E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{057A9D62-4407-4BCD-A481-7E0DC177732E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{057A9D62-4407-4BCD-A481-7E0DC177732E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D78B537-27B0-467F-9395-0D9F2B0CE28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D78B537-27B0-467F-9395-0D9F2B0CE28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D78B537-27B0-467F-9395-0D9F2B0CE28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D78B537-27B0-467F-9395-0D9F2B0CE28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC9069D2-722B-4582-86F7-A7CF5BC74A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC9069D2-722B-4582-86F7-A7CF5BC74A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC9069D2-722B-4582-86F7-A7CF5BC74A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC9069D2-722B-4582-86F7-A7CF5BC74A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
