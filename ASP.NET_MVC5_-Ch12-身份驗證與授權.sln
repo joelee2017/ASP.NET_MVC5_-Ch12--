@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "使用 Cookie 做身份驗�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "使用  Forms Authentication  做身份驗證", "使用  Forms Authentication  做身份驗證\使用  Forms Authentication  做身份驗證.csproj", "{E1C82AAD-6B53-4E45-9071-B90B6538FCC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "全新的 ASP.NET Identity 2.0", "全新的 ASP.NET Identity 2.0\全新的 ASP.NET Identity 2.0.csproj", "{B1D9300E-1C2E-458A-AC2A-D7A1341D66D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E1C82AAD-6B53-4E45-9071-B90B6538FCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1C82AAD-6B53-4E45-9071-B90B6538FCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1C82AAD-6B53-4E45-9071-B90B6538FCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D9300E-1C2E-458A-AC2A-D7A1341D66D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D9300E-1C2E-458A-AC2A-D7A1341D66D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D9300E-1C2E-458A-AC2A-D7A1341D66D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D9300E-1C2E-458A-AC2A-D7A1341D66D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
