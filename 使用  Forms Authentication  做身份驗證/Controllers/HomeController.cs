@@ -45,7 +45,7 @@ namespace 使用__Forms_Authentication__做身份驗證.Controllers
                     DateTime.Now,
                     DateTime.Now.AddMinutes(30),
                     true,//將管理者登入的 Cookie 設定成 Session Cookie
-                    "userdata", // userdata 資料
+                    "userdata9527", // userdata 資料
                     FormsAuthentication.FormsCookiePath);
 
                 string encTicket = FormsAuthentication.Encrypt(ticket);

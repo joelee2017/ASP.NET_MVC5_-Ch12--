@@ -1,4 +1,5 @@
-﻿@{
+﻿@using 使用__Forms_Authentication__做身份驗證.Models.Helper
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -7,7 +8,9 @@
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
-
+<div class="alert alert-info">
+    這是登入者的User Data 【@UserIdentity.GetUserData()】
+</div>
 <div class="row">
     <div class="col-md-4">
         @using (Html.BeginForm("Login", "Home"))
