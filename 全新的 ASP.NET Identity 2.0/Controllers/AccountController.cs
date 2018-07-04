@@ -8,11 +8,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using 全新的_ASP.NET_Identity_2._0.Fliter;
 using 全新的_ASP.NET_Identity_2._0.Models;
 
 namespace 全新的_ASP.NET_Identity_2._0.Controllers
 {
-    [Authorize]
+    [AuthorizePlus]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -68,27 +69,53 @@ namespace 全新的_ASP.NET_Identity_2._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                return View(model);
+                var user = await UserManager.FindAsync(model.Email, model.Password);
+                if(user != null)
+                {
+                    // 另一隻方法private async Task SignInAsync
+                    await SignInAsync(user, model.RememberMe);
+                    if(user.EmailConfirmed)
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        //EMAIL 尚未驗證，導向驗證頁面
+                        return RedirectToAction("VerifyMail");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "無效的使用者名稱和密碼");
+                }
             }
+            //執行到這裡，發生某項失敗，重新的顯示表單
+            return View(model);
 
-            // 這不會計算為帳戶鎖定的登入失敗
-            // 若要啟用密碼失敗來觸發帳戶鎖定，請變更為 shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "登入嘗試失試。");
-                    return View(model);
-            }
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
+
+            //// 這不會計算為帳戶鎖定的登入失敗
+            //// 若要啟用密碼失敗來觸發帳戶鎖定，請變更為 shouldLockout: true
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "登入嘗試失試。");
+            //        return View(model);
+            //}
         }
 
         //
@@ -435,6 +462,15 @@ namespace 全新的_ASP.NET_Identity_2._0.Controllers
             }
         }
 
+        private async Task SignInAsync(ApplicationUser user, bool rememberMe)
+        {
+            //驗證經理/默認驗證類型/外部
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+            AuthenticationManager.SignIn(new AuthenticationProperties()
+            { IsPersistent = rememberMe }, await user.GenerateUserIdentityAsync(UserManager));
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -481,5 +517,32 @@ namespace 全新的_ASP.NET_Identity_2._0.Controllers
             }
         }
         #endregion
+
+        //驗證郵件
+        public ActionResult VerifyMail()
+        {
+            //IsAuthenticated 經過驗證
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> VerifyMail(FormCollection fc)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(userId);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                    new { userId = userId, code = code }, protocol: Request.Url.Scheme);
+
+                await UserManager.SendEmailAsync(userId,
+                    "確認您的帳戶", "請按一下此連結確認您的帳戶 <a href=\"" + callbackUrl + "\">這裏</a>");
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
